@@ -6,7 +6,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import wfm.example.back.config.SystemConfig;
-import wfm.example.back.message.ISendMsgHandle;
+import wfm.example.common.message.ISendMsgHandle;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

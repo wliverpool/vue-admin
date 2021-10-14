@@ -95,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //可以匿名访问url
                 .antMatchers("/cas/client/validateLogin","/sys/randomImage/**","/sys/checkCaptcha","/sys/login","/sys/mLogin","/sys/logout","/thirdLogin/**","/sys/getEncryptedString","/sys/sms","/sys/phoneLogin","/sys/user/checkOnlyUser","/sys/user/register","/sys/user/querySysUser","/sys/user/phoneVerification","/sys/user/passwordChange","/auth/2step-code","/sys/common/static/**",
-                                "/sys/common/pdf/**","/generic/**","/","/doc.html","/**/*.js","/**/*.css","/**/*.html","/**/*.svg","/**/*.pdf","/**/*.jpg","/**/*.png","/**/*.ico","/**/*.ttf","/**/*.woff","/**/*.woff2","/actuator/**","/websocket/**","/newsWebsocket/**","/category/**","/visual/**","/map/**").permitAll()
+                                "/sys/common/pdf/**","/generic/**","/","/doc.html","/**/*.js","/**/*.css","/**/*.html","/**/*.svg","/**/*.pdf","/**/*.jpg","/**/*.png","/**/*.ico","/**/*.ttf","/**/*.woff","/**/*.woff2","/actuator/**","/websocket/**","/newsWebsocket/**","/category/**","/visual/**","/map/**","/activiti/**","/diagram-viewer/**","/editor-app/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 //需要验证了的用户才能访问
                 .anyRequest().authenticated()

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wfm.example.back.mapper.*;
 import wfm.example.back.model.*;
-import wfm.example.back.service.ISysBaseAPI;
+import wfm.example.common.dto.LoginUserDto;
+import wfm.example.common.service.ISysBaseAPI;
 import wfm.example.back.service.ISysUserService;
 import wfm.example.back.vo.JwtUser;
 import wfm.example.common.constant.CacheConstant;
@@ -200,7 +202,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 //		info.setSysUserName(user.getRealname());
 
 
-        JwtUser user = sysBaseAPI.getUserByName(username);
+        LoginUserDto user = sysBaseAPI.getUserByName(username);
         if(user!=null) {
             info.setSysUserCode(user.getUsername());
             info.setSysUserName(user.getRealname());
@@ -441,19 +443,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        JwtUser user = sysBaseAPI.getUserByName(username);
+        LoginUserDto user = sysBaseAPI.getUserByName(username);
         if (null == user){
             throw new UsernameNotFoundException("用户名为:" + username + "的用户不存在");
         }
+        JwtUser jwtUser = new JwtUser();
+        BeanUtils.copyProperties(user,jwtUser);
         Set<String> roles = this.getUserRolesSet(username);
         Set<String> permissions = this.getUserPermissionsSet(username);
-        user.setPermissions(permissions);
+        jwtUser.setPermissions(permissions);
         List<GrantedAuthority> authorities = new ArrayList<>();
         for(String role : roles){
             GrantedAuthority authority = new SimpleGrantedAuthority(role);
             authorities.add(authority);
         }
-        user.setAuthorities(authorities);
-        return user;
+        jwtUser.setAuthorities(authorities);
+        return jwtUser;
     }
 }

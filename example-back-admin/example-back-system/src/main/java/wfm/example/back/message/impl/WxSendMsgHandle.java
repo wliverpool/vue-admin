@@ -1,7 +1,7 @@
 package wfm.example.back.message.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import wfm.example.back.message.ISendMsgHandle;
+import wfm.example.common.message.ISendMsgHandle;
 
 /**
  * 通过微信发送消息

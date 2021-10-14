@@ -2,7 +2,6 @@ package wfm.example.back.vo;
 
 import wfm.example.back.model.SysPermission;
 
-import javax.swing.tree.TreeModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -53,6 +53,12 @@ Vue.use(vueBus);
 Vue.use(DemoComponents);
 Vue.use(VueAreaLinkage);
 
+// 挂载全局使用的方法
+import { getAction,postFormAction ,postAction} from "@/api/manage"
+Vue.prototype.postFormAction = postFormAction;
+Vue.prototype.postDataAction = postAction;
+Vue.prototype.getAction = getAction;
+
 new Vue({
   router,
   store,

@@ -17,8 +17,9 @@ import org.springframework.stereotype.Service;
 import wfm.example.back.config.SystemConfig;
 import wfm.example.back.mapper.*;
 import wfm.example.back.model.*;
-import wfm.example.back.service.ISysBaseAPI;
-import wfm.example.back.vo.JwtUser;
+import wfm.example.common.dto.BusMessageDTO;
+import wfm.example.common.dto.LoginUserDto;
+import wfm.example.common.service.ISysBaseAPI;
 import wfm.example.back.websocket.WebSocket;
 import wfm.example.common.constant.CacheConstant;
 import wfm.example.common.constant.CommonConstant;
@@ -78,11 +79,11 @@ public class SysBaseApiImpl implements ISysBaseAPI {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_USERS_CACHE, key="#username")
-    public JwtUser getUserByName(String username) {
+    public LoginUserDto getUserByName(String username) {
         if(ObjectConvertUtils.isEmpty(username)) {
             return null;
         }
-        JwtUser user = new JwtUser();
+        LoginUserDto user = new LoginUserDto();
         SysUser sysUser = userMapper.getUserByName(username);
         if(sysUser==null) {
             return null;
@@ -317,6 +318,17 @@ public class SysBaseApiImpl implements ISysBaseAPI {
                 webSocket.sendOneMessage(sysUser.getId(), obj.toJSONString());
             }
         }
+    }
+
+    @Override
+    public void sendBusAnnouncement(BusMessageDTO message) {
+        sendBusAnnouncement(message.getFromUser(),
+                message.getToUser(),
+                message.getTitle(),
+                message.getContent(),
+                message.getCategory(),
+                message.getBusType(),
+                message.getBusId());
     }
 
     @Override
@@ -579,5 +591,56 @@ public class SysBaseApiImpl implements ISysBaseAPI {
         JSONObject obj = new JSONObject();
         obj.put(WebsocketConstant.MSG_CMD, cmd);
         webSocket.sendMoreMessage(userIds, obj.toJSONString());
+    }
+
+    /**
+     * 发消息 带业务参数
+     * @param fromUser
+     * @param toUser
+     * @param title
+     * @param msgContent
+     * @param setMsgCategory
+     * @param busType
+     * @param busId
+     */
+    private void sendBusAnnouncement(String fromUser, String toUser, String title, String msgContent, String setMsgCategory, String busType, String busId) {
+        SysAnnouncement announcement = new SysAnnouncement();
+        announcement.setTitile(title);
+        announcement.setMsgContent(msgContent);
+        announcement.setSender(fromUser);
+        announcement.setPriority(CommonConstant.PRIORITY_M);
+        announcement.setMsgType(CommonConstant.MSG_TYPE_UESR);
+        announcement.setSendStatus(CommonConstant.HAS_SEND);
+        announcement.setSendTime(new Date());
+        announcement.setMsgCategory(setMsgCategory);
+        announcement.setDelFlag(String.valueOf(CommonConstant.DEL_FLAG_0));
+        announcement.setBusId(busId);
+        announcement.setBusType(busType);
+        announcement.setOpenType(SysAnnmentTypeEnum.getByType(busType).getOpenType());
+        announcement.setOpenPage(SysAnnmentTypeEnum.getByType(busType).getOpenPage());
+        sysAnnouncementMapper.insert(announcement);
+        // 2.插入用户通告阅读标记表记录
+        String userId = toUser;
+        String[] userIds = userId.split(",");
+        String anntId = announcement.getId();
+        for(int i=0;i<userIds.length;i++) {
+            if(ObjectConvertUtils.isNotEmpty(userIds[i])) {
+                SysUser sysUser = userMapper.getUserByName(userIds[i]);
+                if(sysUser==null) {
+                    continue;
+                }
+                SysAnnouncementSend announcementSend = new SysAnnouncementSend();
+                announcementSend.setAnntId(anntId);
+                announcementSend.setUserId(sysUser.getId());
+                announcementSend.setReadFlag(CommonConstant.NO_READ_FLAG);
+                sysAnnouncementSendMapper.insert(announcementSend);
+                JSONObject obj = new JSONObject();
+                obj.put(WebsocketConstant.MSG_CMD, WebsocketConstant.CMD_USER);
+                obj.put(WebsocketConstant.MSG_USER_ID, sysUser.getId());
+                obj.put(WebsocketConstant.MSG_ID, announcement.getId());
+                obj.put(WebsocketConstant.MSG_TXT, announcement.getTitile());
+                webSocket.sendOneMessage(sysUser.getId(), obj.toJSONString());
+            }
+        }
     }
 }

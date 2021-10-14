@@ -7,6 +7,7 @@ import { filterObj } from '@/utils/util';
 import { deleteAction, getAction,downFile,getFileAccessHttpUrl } from '@/api/manage'
 import Vue from 'vue'
 import { ACCESS_TOKEN } from "@/store/mutation-types"
+import {Modal} from 'ant-design-vue'
 
 export const CustomerListMixin = {
   data(){
@@ -59,6 +60,25 @@ export const CustomerListMixin = {
         //初始化字典配置 在自己页面定义
         this.initDictConfig();
       }
+  },
+  computed:{
+    scroll:function(){
+      var width = window.innerWidth;
+      let $antTable = window.document.getElementsByClassName("ant-row");
+      if ($antTable[0]){
+        width = $antTable[0].clientWidth;
+      }
+      console.log("$antTable",$antTable)
+      return {
+        // x:'max-content',
+        x:width,
+        y:window.innerHeight/2,
+      }
+    },
+    innerHeight:function(){
+      var innerHeight = window.innerHeight;
+      return  innerHeight;
+    },
   },
   methods:{
     loadData(arg) {

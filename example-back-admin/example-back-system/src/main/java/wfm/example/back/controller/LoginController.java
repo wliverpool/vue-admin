@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import wfm.example.back.model.SysUser;
 import wfm.example.back.redis.RedisDao;
-import wfm.example.back.service.ISysBaseAPI;
 import wfm.example.back.service.ISysUserService;
 import wfm.example.back.vo.JwtUser;
 import wfm.example.common.constant.CommonConstant;
@@ -37,8 +36,6 @@ public class LoginController {
     private static final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
 
     @Autowired
-    private ISysBaseAPI sysBaseAPI;
-    @Autowired
     private ISysUserService sysUserService;
     @Autowired
     private RedisDao redisDao;
@@ -47,6 +44,8 @@ public class LoginController {
     private String smsServer;
     @Value("${system.sms.port}")
     private Integer smsPort;
+    @Value("${system.sms.private-key}")
+    private String cxPrivateKey;
 
 
     /**
@@ -193,7 +192,7 @@ public class LoginController {
                     log.error("手机号:{}已经注册，请直接登录！",mobile);
                     return result;
                 }
-                b = DySmsHelperUtils.sendSms(smsServer, smsPort, captcha, mobile, DySmsEnum.REGISTER_TEMPLATE_CODE.getTemplateCode());
+                b = DySmsHelperUtils.sendSms(smsServer, smsPort, captcha, mobile, DySmsEnum.REGISTER_TEMPLATE_CODE.getTemplateCode(),cxPrivateKey);
             }else {
                 //登录模式，校验用户有效性
                 SysUser sysUser = sysUserService.getUserByPhone(mobile);
@@ -211,10 +210,10 @@ public class LoginController {
                  */
                 if (CommonConstant.SMS_TPL_TYPE_0.equals(smsmode)) {
                     //登录模板
-                    b = DySmsHelperUtils.sendSms(smsServer, smsPort, captcha, mobile, DySmsEnum.LOGIN_TEMPLATE_CODE.getTemplateCode());
+                    b = DySmsHelperUtils.sendSms(smsServer, smsPort, captcha, mobile, DySmsEnum.LOGIN_TEMPLATE_CODE.getTemplateCode(),cxPrivateKey);
                 } else if(CommonConstant.SMS_TPL_TYPE_2.equals(smsmode)) {
                     //忘记密码模板
-                    b = DySmsHelperUtils.sendSms(smsServer, smsPort, captcha, mobile, DySmsEnum.FORGET_PASSWORD_TEMPLATE_CODE.getTemplateCode());
+                    b = DySmsHelperUtils.sendSms(smsServer, smsPort, captcha, mobile, DySmsEnum.FORGET_PASSWORD_TEMPLATE_CODE.getTemplateCode(),cxPrivateKey);
                 }
             }
 

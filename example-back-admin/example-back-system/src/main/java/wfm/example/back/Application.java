@@ -2,6 +2,7 @@ package wfm.example.back;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -18,6 +19,10 @@ import java.net.UnknownHostException;
 
 @Slf4j
 @SpringBootApplication
+@EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class,
+        org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration.class
+        ,org.activiti.spring.boot.SecurityAutoConfiguration.class
+})
 public class Application extends SpringBootServletInitializer {
 
     @Override

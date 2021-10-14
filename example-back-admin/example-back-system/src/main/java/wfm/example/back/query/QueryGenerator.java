@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.util.NumberUtils;
 import wfm.example.back.config.SystemConfig;
-import wfm.example.back.service.ISysBaseAPI;
+import wfm.example.common.service.ISysBaseAPI;
 import wfm.example.back.util.DataAuthorUtils;
 import wfm.example.back.util.JwtUtils;
 import wfm.example.common.constant.CommonConstant;

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
-@MapperScan(value={"wfm.example.back.mapper"})
+@MapperScan(value={"wfm.example.back.mapper","wfm.example.back.activiti.mapper"})
 @EnableTransactionManagement
 public class MybatisPlusConfig {
 

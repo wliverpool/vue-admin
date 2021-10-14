@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import wfm.example.back.mapper.SysMessageMapper;
 import wfm.example.back.mapper.SysMessageTemplateMapper;
-import wfm.example.back.message.ISendMsgHandle;
+import wfm.example.common.message.ISendMsgHandle;
 import wfm.example.back.model.SysMessage;
 import wfm.example.back.model.SysMessageTemplate;
 import wfm.example.back.service.ISysMessageService;

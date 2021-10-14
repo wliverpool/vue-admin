@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import wfm.example.common.constant.CommonConstant;
 
 /**
- * 在线用户信息
+ * jwt系统用户信息
  * @author 吴福明
  */
 @Data
@@ -117,6 +117,11 @@ public class JwtUser implements UserDetails {
      * 座机号
      */
     private String telephone;
+
+    /**
+     * 设备id uniapp推送用
+     */
+    private String clientId;
 
     private Collection<? extends GrantedAuthority> authorities;
 
