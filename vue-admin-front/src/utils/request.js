@@ -3,7 +3,7 @@ import axios from 'axios'
 import store from '@/store'
 import { VueAxios } from './axios'
 import {Modal, notification} from 'ant-design-vue'
-import { ACCESS_TOKEN, TENANT_ID } from "@/store/mutation-types"
+import { ACCESS_TOKEN } from "@/store/mutation-types"
 
 /**
  * 【指定 axios的 baseURL】
@@ -93,13 +93,6 @@ service.interceptors.request.use(config => {
   if (token) {
     config.headers[ 'X-Access-Token' ] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
   }
-  //update-begin-author:taoyan date:2020707 for:多租户
-  let tenantid = Vue.ls.get(TENANT_ID)
-  if (!tenantid) {
-    tenantid = 0;
-  }
-  config.headers[ 'tenant_id' ] = tenantid
-  //update-end-author:taoyan date:2020707 for:多租户
   if(config.method=='get'){
     if(config.url.indexOf("sys/dict/getDictItems")<0){
       config.params = {

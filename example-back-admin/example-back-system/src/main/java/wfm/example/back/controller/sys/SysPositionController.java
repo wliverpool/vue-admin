@@ -146,4 +146,25 @@ public class SysPositionController {
         return result;
     }
 
+    /**
+     * 职务-通过code查询
+     *
+     * @param code
+     * @return
+     */
+    @GetMapping(value = "/queryByCode")
+    public Result<SysPosition> queryByCode(@RequestParam(name = "code", required = true) String code) {
+        Result<SysPosition> result = new Result<SysPosition>();
+        QueryWrapper<SysPosition> queryWrapper = new QueryWrapper<SysPosition>();
+        queryWrapper.eq("code",code);
+        SysPosition sysPosition = sysPositionService.getOne(queryWrapper);
+        if (sysPosition == null) {
+            result.error500("未找到对应实体");
+        } else {
+            result.setResult(sysPosition);
+            result.setSuccess(true);
+        }
+        return result;
+    }
+
 }

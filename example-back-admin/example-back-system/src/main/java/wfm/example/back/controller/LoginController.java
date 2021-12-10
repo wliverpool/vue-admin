@@ -8,17 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import wfm.example.back.model.SysDepart;
 import wfm.example.back.model.SysUser;
 import wfm.example.back.redis.RedisDao;
+import wfm.example.back.service.ISysDepartService;
 import wfm.example.back.service.ISysUserService;
+import wfm.example.back.util.JwtUtils;
 import wfm.example.back.vo.JwtUser;
+import wfm.example.back.vo.SysMobileLoginVo;
 import wfm.example.common.constant.CommonConstant;
 import wfm.example.common.enums.DySmsEnum;
-import wfm.example.common.util.DySmsHelperUtils;
-import wfm.example.common.util.MD5Utils;
-import wfm.example.common.util.ObjectConvertUtils;
-import wfm.example.common.util.RandImageUtils;
+import wfm.example.common.util.*;
 import wfm.example.common.vo.Result;
 
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +41,10 @@ public class LoginController {
     private ISysUserService sysUserService;
     @Autowired
     private RedisDao redisDao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ISysDepartService sysDepartService;
 
     @Value("${system.sms.server}")
     private String smsServer;
@@ -165,7 +171,7 @@ public class LoginController {
         String mobile = jsonObject.get("mobile").toString();
         //手机号模式 登录模式: "2"  注册模式: "1"
         String smsmode=jsonObject.get("smsmode").toString();
-        log.info(mobile);
+        //log.info(mobile);
         if(ObjectConvertUtils.isEmpty(mobile)){
             result.setMessage("手机号不允许为空！");
             result.setSuccess(false);

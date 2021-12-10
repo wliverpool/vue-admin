@@ -45,10 +45,12 @@ import java.util.List;
 @Slf4j
 public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
+    private static final String MOBILE_LOGIN_URI = "/sys/mlogin";
+
     private RedisDao redisDao;
 
     public LoginAuthenticationFilter(RedisDao redisDao){
-        super(new AntPathRequestMatcher("/sys/login","POST"));
+        super(new AntPathRequestMatcher("/sys/*login","POST"));
         this.redisDao = redisDao;
     }
 
@@ -74,19 +76,22 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
                 throw new NonceExpiredException("缺少密码信息!");
             }
             String password = jsonObj.getString("password");
-            if (StringUtils.isEmpty(jsonObj.getString("captcha")) ){
-                throw new CaptchaException("缺少验证码信息!");
-            }
-            if (StringUtils.isEmpty(jsonObj.getString("checkKey"))){
-                throw new CaptchaException("缺少验证码信息!");
-            }
-            String checkKey = jsonObj.getString("checkKey");
-            String captcha = jsonObj.getString("captcha");
-            String lowerCaseCaptcha = captcha.toLowerCase();
-            String realKey = MD5Utils.MD5Encode(lowerCaseCaptcha + checkKey, "utf-8");
-            Object checkCode = redisDao.get(realKey);
-            if (null == checkCode || !checkCode.equals(lowerCaseCaptcha)){
-                throw new CaptchaException("验证码验证错误!");
+            if (!MOBILE_LOGIN_URI.equals(request.getRequestURI())) {
+                // pc端登录验证验证码
+                if (StringUtils.isEmpty(jsonObj.getString("captcha")) ){
+                    throw new CaptchaException("缺少验证码信息!");
+                }
+                if (StringUtils.isEmpty(jsonObj.getString("checkKey"))){
+                    throw new CaptchaException("缺少验证码信息!");
+                }
+                String checkKey = jsonObj.getString("checkKey");
+                String captcha = jsonObj.getString("captcha");
+                String lowerCaseCaptcha = captcha.toLowerCase();
+                String realKey = MD5Utils.MD5Encode(lowerCaseCaptcha + checkKey, "utf-8");
+                Object checkCode = redisDao.get(realKey);
+                if (null == checkCode || !checkCode.equals(lowerCaseCaptcha)){
+                    throw new CaptchaException("验证码验证错误!");
+                }
             }
             return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(username,password));
         } catch (IOException e) {

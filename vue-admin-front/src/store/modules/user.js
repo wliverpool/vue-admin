@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { login, logout, phoneLogin, thirdLogin } from "@/api/login"
-import { ACCESS_TOKEN, USER_NAME,USER_INFO,USER_AUTH,SYS_BUTTON_AUTH,UI_CACHE_DB_DICT_DATA,TENANT_ID } from "@/store/mutation-types"
+import { ACCESS_TOKEN, USER_NAME,USER_INFO,USER_AUTH,SYS_BUTTON_AUTH,UI_CACHE_DB_DICT_DATA } from "@/store/mutation-types"
 import { welcome } from "@/utils/util"
 import { queryPermissionsByUser } from '@/api/api'
 import { getAction } from '@/api/manage'
@@ -190,12 +190,7 @@ const user = {
           reject(error)
         })
       })
-    },
-    saveTenant({ commit }, id){
-      Vue.ls.set(TENANT_ID, id, 7 * 24 * 60 * 60 * 1000)
-      commit('SET_TENANT', id)
     }
-
 
   }
 }

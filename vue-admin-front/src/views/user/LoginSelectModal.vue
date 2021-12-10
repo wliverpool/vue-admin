@@ -68,7 +68,6 @@
 
         username:'',
         orgCode:'',
-        tenant_id:'',
 
         validate_status1: "",
         validate_status2: "",
@@ -115,7 +114,7 @@
         if(!ids || ids.length==0){
           this.isMultiTenant = false
         } else if(ids.indexOf(',')<0){
-          this.tenant_id = ids;
+          //this.tenant_id = ids;
           this.isMultiTenant = false
         }else{
           this.visible = true
@@ -135,7 +134,7 @@
         this.bizTenant(ids);
 
         if(this.visible===false){
-          this.$store.dispatch('saveTenant', this.tenant_id);
+          //this.$store.dispatch('saveTenant', this.tenant_id);
           this.$emit('success')
         }
 
@@ -174,7 +173,7 @@
         })
       },
       selectOk(){
-        if(this.isMultiTenant && !this.tenant_id){
+        if(this.isMultiTenant){
           this.validate_status1='error'
           return false
         }
@@ -184,7 +183,7 @@
         }
         this.departResolve().then(()=>{
           if(this.isMultiTenant){
-            this.$store.dispatch('saveTenant', this.tenant_id);
+            //this.$store.dispatch('saveTenant', this.tenant_id);
             this.$emit('success')
           }else{
             this.$emit('success')
@@ -195,7 +194,7 @@
       },
       handleTenantChange(e){
         this.validate_status1 = ''
-        this.tenant_id = e
+        //this.tenant_id = e
       },
       handleDepartChange(e){
         this.validate_status2 = ''

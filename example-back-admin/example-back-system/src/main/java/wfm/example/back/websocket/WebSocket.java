@@ -27,6 +27,9 @@ import wfm.example.common.constant.WebsocketConstant;
 @ServerEndpoint("/websocket/{userId}")
 public class WebSocket {
 
+    //1.增加app端标识
+    private String APP_SESSION_SUFFIX = "_app";
+
     private Session session;
 
     private static CopyOnWriteArraySet<WebSocket> webSockets =new CopyOnWriteArraySet<>();
@@ -98,6 +101,16 @@ public class WebSocket {
                 log.error(e.getMessage(), e);
             }
         }
+        //--------增加APP端消息推送--------
+        Session session_app = sessionPool.get(userId+APP_SESSION_SUFFIX );
+        if (session_app != null&&session_app .isOpen()) {
+            try {
+                log.info("【websocket移动端消息】 单点消息:"+message);
+                session_app .getAsyncRemote().sendText(message);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+        }
     }
 
     /**
@@ -112,6 +125,16 @@ public class WebSocket {
                 try {
                     log.info("【websocket消息】 单点消息:"+message);
                     session.getAsyncRemote().sendText(message);
+                } catch (Exception e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
+            //--------增加APP端消息推送--------
+            Session session_app = sessionPool.get(userId+APP_SESSION_SUFFIX );
+            if (session_app != null&&session_app .isOpen()) {
+                try {
+                    log.info("【websocket移动端消息】 单点消息:"+message);
+                    session_app .getAsyncRemote().sendText(message);
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
                 }

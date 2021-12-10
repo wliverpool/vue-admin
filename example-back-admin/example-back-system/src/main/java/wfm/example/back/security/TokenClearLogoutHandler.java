@@ -56,6 +56,13 @@ public class TokenClearLogoutHandler implements LogoutHandler {
             //清空用户的缓存信息（包括部门信息），例如sys:cache:user::<username>
             redisDao.del(String.format("%s::%s", CacheConstant.SYS_USERS_CACHE, jwtUser.getUsername()));
             result = result.success("退出登录成功！");
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS");
+            response.setHeader("Access-Control-Max-Age", "86400");
+            response.setHeader("Access-Control-Allow-Headers", "*");
             response.getWriter().write(JSON.toJSONString(result));
         } catch (IOException e){
             log.error(e.getMessage(), e);
