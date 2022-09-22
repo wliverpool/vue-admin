@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import wfm.example.back.config.SystemConfig;
-import wfm.example.back.rule.IFillRuleHandler;
+import wfm.example.back.common.config.SystemConfig;
+import wfm.example.back.sys.rule.IFillRuleHandler;
 
 /**
  * 规则值自动生成工具类

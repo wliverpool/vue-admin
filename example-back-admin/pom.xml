@@ -11,6 +11,7 @@
         <module>example-back-common</module>
         <module>example-back-system</module>
         <module>example-back-activiti</module>
+        <module>example-back-web</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -191,6 +192,11 @@
             <dependency>
                 <groupId>wfm.example</groupId>
                 <artifactId>example-back-activiti</artifactId>
+                <version>${example.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>wfm.example</groupId>
+                <artifactId>example-back-system</artifactId>
                 <version>${example.version}</version>
             </dependency>
         </dependencies>

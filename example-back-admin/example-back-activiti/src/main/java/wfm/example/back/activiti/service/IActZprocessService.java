@@ -3,8 +3,8 @@ package wfm.example.back.activiti.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import wfm.example.back.activiti.model.ActBusiness;
 import wfm.example.back.activiti.model.ActZprocess;
-import wfm.example.common.dto.LoginUserDto;
-import wfm.example.common.vo.ProcessNodeVo;
+import wfm.example.back.common.dto.LoginUserDto;
+import wfm.example.back.common.vo.ProcessNodeVo;
 
 import java.util.List;
 

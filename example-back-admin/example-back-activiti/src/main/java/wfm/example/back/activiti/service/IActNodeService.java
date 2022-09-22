@@ -2,9 +2,9 @@ package wfm.example.back.activiti.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import wfm.example.back.activiti.model.ActNode;
-import wfm.example.common.dto.DepartmentDto;
-import wfm.example.common.dto.LoginUserDto;
-import wfm.example.common.dto.RoleDto;
+import wfm.example.back.common.dto.DepartmentDto;
+import wfm.example.back.common.dto.LoginUserDto;
+import wfm.example.back.common.dto.RoleDto;
 
 import java.util.List;
 

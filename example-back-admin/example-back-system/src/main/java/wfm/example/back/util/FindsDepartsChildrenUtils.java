@@ -1,9 +1,9 @@
 package wfm.example.back.util;
 
-import wfm.example.back.model.SysDepart;
-import wfm.example.common.dto.DepartIdDTO;
-import wfm.example.common.dto.SysDepartTreeDTO;
-import wfm.example.common.util.ObjectConvertUtils;
+import wfm.example.back.sys.model.SysDepart;
+import wfm.example.back.common.dto.DepartIdDTO;
+import wfm.example.back.common.dto.SysDepartTreeDTO;
+import wfm.example.back.common.util.ObjectConvertUtils;
 
 import java.util.ArrayList;
 import java.util.List;

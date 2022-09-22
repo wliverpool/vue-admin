@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
+import wfm.example.back.common.model.BaseStringIDModel;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,32 +19,12 @@ import java.util.Date;
  */
 @Data
 @TableName("act_z_process")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ActZprocess {
-    
-	/**id*/
-	@TableId(type = IdType.ID_WORKER_STR)
-	private String id;
-
-	/**createBy*/
-	private String createBy;
-
-	/**createTime*/
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date createTime;
+public class ActZprocess extends BaseStringIDModel implements Serializable {
 
 	/**delFlag*/
 	private Integer delFlag;
-
-	/**updateBy*/
-	private String updateBy;
-
-	/**updateTime*/
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date updateTime;
 
 	/**所属分类*/
 	private String categoryId;

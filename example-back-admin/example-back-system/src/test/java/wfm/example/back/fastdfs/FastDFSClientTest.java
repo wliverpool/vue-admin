@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import wfm.example.common.dto.FastDFSFileDto;
-import wfm.example.common.fastdfs.FastDFSClient;
+import wfm.example.back.common.dto.FastDFSFileDto;
+import wfm.example.back.common.fastdfs.FastDFSClient;
 
 import java.io.File;
 import java.io.FileInputStream;

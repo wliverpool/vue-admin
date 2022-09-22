@@ -7,17 +7,16 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.common.base.Joiner;
 import org.springframework.security.core.context.SecurityContextHolder;
-import wfm.example.back.config.SystemConfig;
-import wfm.example.back.vo.JwtUser;
-import wfm.example.common.constant.DataBaseConstant;
-import wfm.example.common.exception.BizException;
-import wfm.example.common.util.DateUtils;
-import wfm.example.common.util.ObjectConvertUtils;
-import wfm.example.common.vo.SysUserCacheVo;
+import wfm.example.back.common.util.DataAuthorUtils;
+import wfm.example.back.sys.vo.JwtUser;
+import wfm.example.back.common.constant.DataBaseConstant;
+import wfm.example.back.common.exception.BizException;
+import wfm.example.back.common.util.DateUtils;
+import wfm.example.back.common.util.ObjectConvertUtils;
+import wfm.example.back.common.vo.SysUserCacheVo;
 
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * JWT工具类

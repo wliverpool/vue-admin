@@ -10,7 +10,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
+import wfm.example.back.common.model.BaseStringIDModel;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,9 +23,11 @@ import java.util.Map;
  */
 @Data
 @TableName("act_z_business")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ActBusiness {
+public class ActBusiness extends BaseStringIDModel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 表单路由
@@ -41,39 +45,9 @@ public class ActBusiness {
     private String processName;
 
     /**
-     * id
-     */
-    @TableId(type = IdType.ID_WORKER_STR)
-    private String id;
-
-    /**
-     * createBy
-     */
-    private String createBy;
-
-    /**
-     * createTime
-     */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
-
-    /**
      * delFlag
      */
     private Integer delFlag;
-
-    /**
-     * updateBy
-     */
-    private String updateBy;
-
-    /**
-     * updateTime
-     */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
 
     /**
      * 流程定义id

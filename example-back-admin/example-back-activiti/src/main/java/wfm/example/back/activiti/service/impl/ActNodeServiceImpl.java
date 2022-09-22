@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 import wfm.example.back.activiti.mapper.ActNodeMapper;
 import wfm.example.back.activiti.model.ActNode;
 import wfm.example.back.activiti.service.IActNodeService;
-import wfm.example.common.dto.DepartmentDto;
-import wfm.example.common.dto.LoginUserDto;
-import wfm.example.common.dto.RoleDto;
+import wfm.example.back.common.dto.DepartmentDto;
+import wfm.example.back.common.dto.LoginUserDto;
+import wfm.example.back.common.dto.RoleDto;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

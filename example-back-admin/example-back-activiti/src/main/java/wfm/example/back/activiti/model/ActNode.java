@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
+import wfm.example.back.common.model.BaseStringIDModel;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,35 +19,17 @@ import java.util.Date;
  */
 @Data
 @TableName("act_z_node")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ActNode {
-    
-	/**id*/
-	@TableId(type = IdType.ID_WORKER_STR)
-	private String id;
+public class ActNode extends BaseStringIDModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**流程定义id*/
 	private String procDefId;
 
-	/**createBy*/
-	private String createBy;
-
-	/**createTime*/
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date createTime;
-
 	/**delFlag*/
 	private Integer delFlag;
-
-	/**updateBy*/
-	private String updateBy;
-
-	/**updateTime*/
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date updateTime;
 
 	/**节点id*/
 	private String nodeId;

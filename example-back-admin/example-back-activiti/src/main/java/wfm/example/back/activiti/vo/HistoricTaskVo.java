@@ -4,8 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.activiti.engine.history.HistoricTaskInstance;
-import wfm.example.common.constant.ActivitiConstant;
-import wfm.example.common.dto.AssigneeDto;
+import wfm.example.back.common.constant.ActivitiConstant;
+import wfm.example.back.common.dto.AssigneeDto;
 
 import java.util.Date;
 import java.util.List;

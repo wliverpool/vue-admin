@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import wfm.example.back.activiti.mapper.ActBusinessMapper;
 import wfm.example.back.activiti.model.ActBusiness;
 import wfm.example.back.activiti.vo.HistoricTaskVo;
-import wfm.example.common.dto.LoginUserDto;
+import wfm.example.back.common.dto.LoginUserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

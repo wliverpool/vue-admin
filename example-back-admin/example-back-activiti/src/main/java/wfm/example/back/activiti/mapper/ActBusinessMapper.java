@@ -3,7 +3,7 @@ package wfm.example.back.activiti.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 import wfm.example.back.activiti.model.ActBusiness;
-import wfm.example.common.dto.LoginUserDto;
+import wfm.example.back.common.dto.LoginUserDto;
 
 import java.util.List;
 import java.util.Map;
