@@ -12,6 +12,7 @@
         <module>example-back-system</module>
         <module>example-back-activiti</module>
         <module>example-back-web</module>
+        <module>example-back-wx</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -180,6 +181,19 @@
             <version>1.27-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -197,6 +211,11 @@
             <dependency>
                 <groupId>wfm.example</groupId>
                 <artifactId>example-back-system</artifactId>
+                <version>${example.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>wfm.example</groupId>
+                <artifactId>example-back-wx</artifactId>
                 <version>${example.version}</version>
             </dependency>
         </dependencies>
