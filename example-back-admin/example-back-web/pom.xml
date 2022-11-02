@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>wfm.example</groupId>
-            <artifactId>example-back-wx</artifactId>
+            <artifactId>example-back-wx-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
