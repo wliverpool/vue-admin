@@ -15,11 +15,15 @@ import wfm.example.back.common.model.BaseStringIDModel;
  * @author 吴福明
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Accessors(chain = true)
-public class SysUserRole extends BaseStringIDModel implements Serializable {
+public class SysUserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /** ID */
+    @TableId(type = IdType.ID_WORKER_STR)
+    private String id;
 
     /**
      * 用户id

@@ -17,12 +17,16 @@ import lombok.experimental.Accessors;
 import wfm.example.back.common.model.BaseStringIDModel;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Accessors(chain = true)
 @TableName("sys_user_depart")
-public class SysUserDepart extends BaseStringIDModel implements Serializable {
+public class SysUserDepart implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /** ID */
+    @TableId(type = IdType.ID_WORKER_STR)
+    private String id;
 
     /**用户id*/
     private String userId;

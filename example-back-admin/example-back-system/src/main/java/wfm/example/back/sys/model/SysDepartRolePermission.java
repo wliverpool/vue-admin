@@ -19,11 +19,15 @@ import java.util.Date;
  */
 @Data
 @TableName("sys_depart_role_permission")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Accessors(chain = true)
-public class SysDepartRolePermission extends BaseStringIDModel implements Serializable {
+public class SysDepartRolePermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /** ID */
+    @TableId(type = IdType.ID_WORKER_STR)
+    private String id;
 
     /**部门id*/
     private String departId;

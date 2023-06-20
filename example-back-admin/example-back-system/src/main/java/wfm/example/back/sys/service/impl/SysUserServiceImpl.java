@@ -69,8 +69,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @CacheEvict(value = {CacheConstant.SYS_USERS_CACHE}, allEntries = true)
     public Result<?> resetPassword(String username, String oldpassword, String newpassword, String confirmpassword) {
         SysUser user = userMapper.getUserByName(username);
-        String passwordEncode = PasswordUtils.encrypt(username, oldpassword, user.getSalt());
-        if (!user.getPassword().equals(passwordEncode)) {
+        if (!passwordEncoder.matches(oldpassword,user.getPassword())) {
             return Result.error("旧密码输入错误!");
         }
         if (ObjectConvertUtils.isEmpty(newpassword)) {

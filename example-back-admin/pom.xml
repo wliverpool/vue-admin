@@ -13,6 +13,7 @@
         <module>example-back-activiti</module>
         <module>example-back-web</module>
         <module>example-back-wx-api</module>
+        <module>example-back-wx</module>
     </modules>
     <packaging>pom</packaging>
 

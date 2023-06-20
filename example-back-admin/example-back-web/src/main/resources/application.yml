@@ -53,7 +53,7 @@ spring:
     #10.32.201.28:5672
     addresses: "10.32.201.28:3306"
     username: guest
-    password: guest
+    password: liverpool2008WFM!
     virtual-host: /
     admin-message-notify:
       queue-name: backAdminMessageSendNotify
@@ -118,7 +118,7 @@ spring:
   #redis 配置
   redis:
     # Redis数据库索引（默认为 0）
-    database: 7
+    database: 6
     # Redis服务器地址
     host: 10.32.201.29
     # Redis服务器连接端口
